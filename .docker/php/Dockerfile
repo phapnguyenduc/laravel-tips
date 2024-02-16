@@ -41,5 +41,13 @@ RUN composer global require "laravel/installer"
 WORKDIR /root
 RUN git clone https://github.com/seebi/dircolors-solarized
 
+#ARG YOUR_USER=myuser
+#ARG YOUR_USER_GROUP=mygroup
+#RUN groupadd -r $YOUR_USER_GROUP && useradd -r -g $YOUR_USER_GROUP $YOUR_USER
+
 EXPOSE 5173
 WORKDIR /var/www
+
+#RUN chown -R $YOUR_USER:$YOUR_USER_GROUP /var/www && \
+#    chmod -R 755 /var/www
+#USER $YOUR_USER

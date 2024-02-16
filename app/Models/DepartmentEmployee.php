@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Salary extends Model
+class DepartmentEmployee extends Model
 {
     use HasFactory;
 
-    public function employee()
-    {
-        return $this->belongsTo(Employee::class);
-    }
+    protected $table = 'dept_emp';
+
+    protected $fillable = [
+        'emp_no',
+        'dept_no'
+    ];
 }

@@ -3,21 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DbModelEloquentController extends Controller
 {
-    public function index()
+    public function cloneIntro()
     {
-        $employeeArr = Employee::query()->whereRaw('emp_no <= ?', 10010);
-        $employeeMaleBefore = $employeeArr->where('gender', 'M')->get();
-        $employeeFemaleBefore = $employeeArr->where('gender', 'F')->get();
+        $employeeArr1 = Employee::query();
+        $employeeMaleBefore = $employeeArr1->where('gender', 0)->get();
+        $employeeFemaleBefore = $employeeArr1->where('gender', 1)->get();
         dump('Before', $employeeMaleBefore, $employeeFemaleBefore);
 
-//        $employeeMaleAfter = $employeeArr->clone()->where('gender', 'M')->get();
-//        $employeeFemaleAfter = $employeeArr->clone()->where('gender', 'F')->get();
-//        $employeeMaleBefore = (clone $employeeArr)->where('gender', 'M')->get();
-//        $employeeFemaleBefore = (clone $employeeArr)->where('gender', 'F')->get();
-//        dump('After', $employeeMaleAfter, $employeeFemaleAfter);
+        $employeeArr2 = Employee::query();
+        $employeeMaleAfter = $employeeArr2->clone()->where('gender', 0)->get();
+        $employeeFemaleAfter = $employeeArr2->clone()->where('gender', 1)->get();
+//        $employeeMaleBefore = (clone $employeeArr2)->where('gender', 'M')->get();
+//        $employeeFemaleBefore = (clone $employeeArr2)->where('gender', 'F')->get();
+        dump('After', $employeeMaleAfter, $employeeFemaleAfter);
+    }
+    public function mergeCollectionIntro()
+    {
+        dd(Employee::all());
     }
 }

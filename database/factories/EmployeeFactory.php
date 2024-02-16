@@ -23,8 +23,7 @@ class EmployeeFactory extends Factory
             'birth_date' => $this->faker->date,
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'gender' => $this->faker->randomElement(['M', 'F']),
-            'hire_date' => $this->faker->date,
+            'gender' => $this->faker->boolean
         ];
     }
 }

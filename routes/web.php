@@ -19,6 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('demo')->group(function () {
-    Route::get('db-model-eloquent', [DbModelEloquentController::class, 'index']);
+Route::prefix('db-model-eloquent')->group(function () {
+    Route::get('clone', [DbModelEloquentController::class, 'cloneIntro']);
+    Route::get('merge-collection', [DbModelEloquentController::class, 'mergeCollectionIntro']);
 });
