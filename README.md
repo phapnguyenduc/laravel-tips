@@ -12,5 +12,5 @@
 1. composer install
 2. create .env from env example
 3. docker compose up -d
-4. docker exec -it mysql bash
-5. mysql -u phapnd -p < /home/test_db/employees.sql
+4. php artisan migrate
+5. php artisan db:seed 
