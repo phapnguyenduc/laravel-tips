@@ -14,8 +14,8 @@ class DepartmentEmployee extends Seeder
      */
     public function run(): void
     {
-        $employees = Employee::all()->take(100);
-        $departments = Department::all()->take(10);
+        $employees = Employee::all()->take(1000);
+        $departments = Department::all()->take(100);
         foreach ($employees as $employee) {
             $departmentId = $departments->random();
             \App\Models\DepartmentEmployee::create([

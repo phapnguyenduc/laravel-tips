@@ -27,4 +27,11 @@ Route::prefix('db-model-eloquent')->group(function () {
     Route::get('hide-column', [DbModelEloquentController::class, 'hideColumn']);
     Route::get('copy-model', [DbModelEloquentController::class, 'copyModel']);
     Route::get('reduce-mem', [DbModelEloquentController::class, 'reduceMem']);
+    Route::get('sole', [DbModelEloquentController::class, 'sole']);
+    Route::get('with-aggregate', [DbModelEloquentController::class, 'withAggregateEx']);
+    Route::get('multiple-upsert', [DbModelEloquentController::class, 'multipleUpsert']);
+    Route::get('retrieve-query-builder', [DbModelEloquentController::class, 'retrieveQueryBuilder']);
+    Route::get('custom-cast', [DbModelEloquentController::class, 'customCast']);
+    Route::get('human-date', [DbModelEloquentController::class, 'humanDate']);
+    Route::get('check-created', [DbModelEloquentController::class, 'checkRecentlyCreated']);
 });
