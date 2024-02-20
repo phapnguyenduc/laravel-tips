@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Post;
 use App\Models\User;
@@ -30,7 +31,7 @@ class DbModelEloquentController extends Controller
         $users = User::all();
         dump("User model", $users, "Employee model", $employees);
         dump("Merge", $users->merge($employees));
-//        dump("Merge not remove duplicate, basic merge", $employees->toBase()->merge($employees));
+//        dump("Merge not remove duplicate, basic merge", $users->toBase()->merge($employees));
     }
 
     public function loadDataFaster()
@@ -47,7 +48,7 @@ class DbModelEloquentController extends Controller
         echo "Eloquent Query Execution Time: {$executionTime} ms";
     }
 
-    public function scope()
+    public function multipleScope()
     {
         dd(Employee::birthDateFilter('2000-01-01')->male()->get()->take(10));
     }
@@ -60,7 +61,7 @@ class DbModelEloquentController extends Controller
 
     public function copyModel()
     {
-        $employee = Employee::create([
+        $employee = new Employee([
             'birth_date' => '2000-01-01',
             'first_name' => 'abcd',
             'last_name' => 'Nguyen',
@@ -72,9 +73,10 @@ class DbModelEloquentController extends Controller
            'gender' => false
         ]);
 
-        // more infor:  replicate([except column in here])
+        // more infor: replicate([except column in here])
 
         $employeeCopied->save();
+//        $employeeCopied->saveQuietly();
         return 'ok';
     }
 
@@ -93,6 +95,8 @@ class DbModelEloquentController extends Controller
 
         dd("Memory used: " . $memoryUsedInMB . " MB");
     }
+
+    //1.3
 
     public function sole()
     {
@@ -173,20 +177,5 @@ class DbModelEloquentController extends Controller
         $post = Post::whereId(1)->first();
         $result = $post->created_at->diffForHumans();
         return $result;
-    }
-
-    public function checkRecentlyCreated()
-    {
-        $user = User::create([
-            'name' => 'Oussama',
-            'email' => 'oussama@gmail.com',
-            'password' => '123123123'
-        ]);
-
-        // return boolean
-        return $user->wasRecentlyCreated;
-
-        // true for recently created
-        // false for found (already on you db)
     }
 }

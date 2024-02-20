@@ -23,7 +23,7 @@ Route::prefix('db-model-eloquent')->group(function () {
     Route::get('clone', [DbModelEloquentController::class, 'cloneIntro']);
     Route::get('merge-collection', [DbModelEloquentController::class, 'mergeCollectionIntro']);
     Route::get('load-data-faster', [DbModelEloquentController::class, 'loadDataFaster']);
-    Route::get('scope', [DbModelEloquentController::class, 'scope']);
+    Route::get('multiple-scope', [DbModelEloquentController::class, 'multipleScope']);
     Route::get('hide-column', [DbModelEloquentController::class, 'hideColumn']);
     Route::get('copy-model', [DbModelEloquentController::class, 'copyModel']);
     Route::get('reduce-mem', [DbModelEloquentController::class, 'reduceMem']);
@@ -33,5 +33,4 @@ Route::prefix('db-model-eloquent')->group(function () {
     Route::get('retrieve-query-builder', [DbModelEloquentController::class, 'retrieveQueryBuilder']);
     Route::get('custom-cast', [DbModelEloquentController::class, 'customCast']);
     Route::get('human-date', [DbModelEloquentController::class, 'humanDate']);
-    Route::get('check-created', [DbModelEloquentController::class, 'checkRecentlyCreated']);
 });

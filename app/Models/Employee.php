@@ -25,6 +25,25 @@ class Employee extends Model
         'first_name' => CapitalizeWordsCast::class
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+//        Employee::saving(function() {
+//            dump('saving');
+//        });
+        Employee::creating(function($model) {
+            dump('creating');
+            $model->em_no = Employee::max('id') + 1;
+        });
+//        Employee::created(function() {
+//            dump('created');
+//        });
+//        Employee::saved(function() {
+//            dump('saved');
+//        });
+    }
+
     public function scopeMale($query) {
         return $query->where('gender', 1);
     }
