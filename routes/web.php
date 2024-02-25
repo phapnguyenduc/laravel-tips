@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\DbModelEloquentController;
 use Illuminate\Support\Facades\Route;
-
+use Aws\SesV2\SesV2Client;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +16,60 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+//    return view('welcome');
+//    \Illuminate\Support\Facades\Mail::to('phap.nguyenduc@vti.com.vn')->send(new \App\Mail\TestMail());
+    $sesClient = new SesV2Client([
+        'version' => 'latest',
+        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+        'credentials' => [
+            'key' => env('AWS_ACCESS_KEY_ID', ''),
+            'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
+        ],
+    ]);
+    $senderEmail = 'phap.nguyenduc@vti.com.vn';
+    $recipientEmail = 'nguyenducphap2000@gmail.com';
+
+    $subject = 'Hello from SES';
+    $body = 'This is the body of the email.';
+    $html = '<p>Hello Im Phap</p>';
+//    dd($sesClient->listContacts([
+//        'ContactListName' => 'list-2024',
+////        'EmailAddress' => 'nguyenducphap2000@gmail.com',
+////        'UnsubscribeAll' => false
+//    ]));
+
+//    $sesClient->createContactList([
+//        'ContactListName' => 'list-2024'
+//    ]);
+
+    $sesClient->sendEmail([
+        'Content' => [ // REQUIRED
+//            'Raw' => [
+//                'Data' => 'asdasjdjklj'
+//            ],
+            'Simple' => [
+                'Body' => [ // REQUIRED
+                    'Html' => [
+                        'Charset' => 'UTF-8',
+                        'Data' => $html, // REQUIRED
+                    ],
+                    'Text' => [
+                        'Data' => $body, // REQUIRED
+                    ],
+                ],
+                'Subject' => [ // REQUIRED
+                    'Data' => $subject, // REQUIRED
+                ],
+            ],
+    ],
+    'Destination' => [
+        'ToAddresses' => [$recipientEmail],
+    ],
+    'ListManagementOptions' => [
+        'ContactListName' => 'list-2024', // REQUIRED
+    ],
+    'FromEmailAddress' => $senderEmail
+    ]);
 });
 
 Route::prefix('db-model-eloquent')->group(function () {
